@@ -1,0 +1,57 @@
+package com.ibm.fp.interfaces.lambda.functionasarg.lab1;
+
+@FunctionalInterface
+interface Resolve{
+   void success(String msg);
+}
+
+@FunctionalInterface
+interface Reject {
+    void failure(String msg);
+}
+
+class User{
+    private String username;
+    private String password;
+
+    public User() {
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}
+
+public class Login {
+
+    User user  = new User("admin","admin1");
+
+    public void validate(Resolve resolve , Reject reject){
+        if("admin".equals(user.getUsername()) && "admin".equals(user.getPassword()))
+            resolve.success("Login Success.");
+        else
+            reject.failure("Login Failed.");
+    }
+
+    public static void main(String[] args) {
+        new Login().validate((msg)->System.err.println(msg),(msg)->System.err.println(msg));
+    }
+
+}
